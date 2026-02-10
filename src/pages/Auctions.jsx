@@ -2,37 +2,43 @@
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { getAuctions } from "../api/auctions";
+import { useAuth } from "../auth/AuthContext";
 
-const Auctions = () => {
+export default function Auctions() {
   const [auctions, setAuctions] = useState([]);
+  const { token } = useAuth();
+  const syncAuctions = async () => {
+    try {
+      const data = await getAuctions();
+      console.log("fetched auctions", data);
+      setAuctions(data);
+    } catch (error) {
+      console.error("failed to fetch auctions", error);
+    }
+  };
 
   useEffect(() => {
-    fetch("/api/auctions")
-      .then((response) => response.json())
-      .then((data) => setAuctions(data))
-      .catch((error) => console.error("Error fetching auctions:", error));
+    syncAuctions();
   }, []);
 
   return (
-    <div>
+    <>
       <h1>Auctions</h1>
-      <Link to="/auctions/new">
-        <button>Create New Auction</button>
-      </Link>
       <ul>
         {auctions.map((auction) => (
           <li key={auction.id}>
-            <h2>{auction.title}</h2>
-            <p>{auction.icon}</p>
-            <p>{auction.url}</p>
-
-            <button>Edit Auction</button>
-            <button>Delete Auction</button>
+            <h2>{auction.name}</h2>
+            <br />
+            {auction.icon_url && (
+              <img src={auction.icon_url} alt={auction.name + " icon"} />
+            )}
+            <br />
+            <Link to={auction.url}>{auction.url}</Link>
           </li>
         ))}
       </ul>
-    </div>
+      {token && <Link to="/auctions/new">Create New Auction</Link>}
+    </>
   );
-};
-
-export default Auctions;
+}

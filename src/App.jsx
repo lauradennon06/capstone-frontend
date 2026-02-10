@@ -9,16 +9,20 @@ import InquiryCar from "./pages/InqueiryCar";
 import User from "./pages/User";
 import Auctions from "./pages/Auctions";
 import Inqueries from "./pages/Inquiries";
+import Error404 from "/src/Error404.jsx";
 
 export default function App() {
   return (
     <Routes>
+      <Route index element={<Home />} />
+      <Route path="/home" element={<Home />} />
+
       <Route element={<Layout />}>
-        <Route index element={<Home />} />
         <Route path="/cars" element={<Cars />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user" element={<User />} />
         <Route path="/inquiries" element={<Inqueries />} />
+        <Route path="*" element={<Error404 />} />
         <Route path="/auctions" element={<Auctions />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cars/:carId" element={<Car />} />

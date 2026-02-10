@@ -1,10 +1,13 @@
 //Cars page will fetch and display a list of cars from the API
+// logged in user will have the option to add a new car, which will take them to a form to fill out the details of the car
 import { useState, useEffect } from "react";
 import { getCars } from "../api/cars";
 import { Link } from "react-router";
+import { useAuth } from "../auth/AuthContext";
 
 export default function Cars() {
   const [cars, setCars] = useState([]);
+  const { token } = useAuth();
 
   const syncCars = async () => {
     try {
@@ -41,6 +44,7 @@ export default function Cars() {
           ),
         )}
       </ul>
+      {token && <Link to="/cars/new">Add New Car</Link>}
     </>
   );
 }
