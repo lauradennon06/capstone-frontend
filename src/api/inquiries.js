@@ -5,6 +5,9 @@ const API = import.meta.env.VITE_API;
 export async function getInquiries() {
   try {
     const response = await fetch(`${API}/inquiries`);
+    if (!response.ok) {
+      throw Error(`Failed to fetch inquiries: ${response.statusText}`);
+    }
     const result = await response.json();
     return result;
   } catch (e) {
@@ -45,9 +48,8 @@ export async function deleteInquiry(token, inquiryId) {
     },
   });
 
-  const result = await response.json();
   if (!response.ok) {
-    throw Error(result.message);
+    throw Error("Failed to delete inquiry");
   }
-  return result;
+  return response;
 }

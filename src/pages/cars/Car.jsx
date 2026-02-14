@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
-import { getCarById } from "../api/cars";
-import { useAuth } from "../auth/AuthContext";
+import { getCarById } from "../../api/cars";
+import { useAuth } from "../../auth/AuthContext";
 
 // This component will render the Car image, make, model, year, price, color, milage, as well as a button to create an inquiry about the car, and an edit button for a logged in user to edit the car details
 // Information will be fetched from the API

@@ -11,11 +11,11 @@ export default function Login() {
   const [error, setError] = useState(null);
 
   const onLogin = async (formData) => {
-    const username = formData.get("username");
+    const email = formData.get("email");
     const password = formData.get("password");
     try {
-      await login({ username, password });
-      navigate("/");
+      await login({ email, password });
+      navigate("/user");
     } catch (e) {
       setError(e.message);
     }
@@ -26,8 +26,8 @@ export default function Login() {
       <h2>ADMIN LOGIN</h2>
       <form action={onLogin}>
         <label>
-          Username
-          <input type="username" name="username" required />
+          Email
+          <input type="email" name="email" required />
         </label>
         <label>
           Password

@@ -55,25 +55,25 @@ export const getAllUsers = async (token) => {
 };
 
 // Login user
-export const loginUser = async (username, password) => {
+export const loginUser = async (email, password) => {
   const response = await fetch(`${API}/users/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ email, password }),
   });
   return response.json();
 };
 
 // Register user
-export const registerUser = async (username, password) => {
+export const registerUser = async (email, password) => {
   const response = await fetch(`${API}/users/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ email, password }),
   });
   return response.json();
 };

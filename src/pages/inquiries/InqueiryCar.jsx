@@ -1,10 +1,10 @@
 // This compnent will render the form to create an Inquiry about a specific car, the form will have a text area for a name, a text area for phone number, and a text area for a message, as well as a submit button to submit the inquiry to the API, and a cancel button to go back to the car details page
 // The car ID will be a dynamic segment, the component will get the ID from useParams
 
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
-import { createInquiry } from "../api/inquiries";
-import { getCarById } from "../api/cars";
+import { createInquiry } from "../../api/inquiries";
+import { getCarById } from "../../api/cars";
 
 export default function InquiryCar() {
   const { carId } = useParams();
@@ -12,9 +12,11 @@ export default function InquiryCar() {
 
   const [car, setCar] = useState(null);
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     async function fetchCar() {
@@ -31,8 +33,17 @@ export default function InquiryCar() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await createInquiry(carId, { name, phone, message });
-      navigate(`/cars/${carId}`);
+      await createInquiry({
+        name,
+        email,
+        number,
+        message,
+        carId,
+      });
+      setSuccess(true);
+      setTimeout(() => {
+        navigate("/cars");
+      }, 2000);
     } catch (e) {
       setError(e.message);
     }
@@ -40,6 +51,18 @@ export default function InquiryCar() {
 
   if (!car) {
     return <p>Loading car details...</p>;
+  }
+
+  if (success) {
+    return (
+      <div>
+        <h1>Thank You!</h1>
+        <p style={{ color: "white" }}>
+          Your inquiry has been submitted successfully. Redirecting to cars
+          page...
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -58,10 +81,18 @@ export default function InquiryCar() {
           />
         </div>
         <div>
+          <label>Email:</label>
+          <textarea
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
           <label>Phone Number:</label>
           <textarea
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
             required
           />
         </div>

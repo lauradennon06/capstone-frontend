@@ -5,13 +5,15 @@
 // The component anf the delete button are only visible to the logged in user, if the user is not logged in, it will display a message saying "Please log in to view your inquiries"
 
 import React, { useState, useEffect } from "react";
-import { getInquiries, deleteInquiry } from "../api/inquiries";
+import { getInquiries, deleteInquiry } from "../../api/inquiries";
 import { useNavigate } from "react-router";
+import { useAuth } from "../../auth/AuthContext";
 
 export default function Inquiries() {
   const [inquiries, setInquiries] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { token } = useAuth();
 
   useEffect(() => {
     async function fetchInquiries() {
@@ -27,7 +29,7 @@ export default function Inquiries() {
 
   async function handleDelete(id) {
     try {
-      await deleteInquiry(id);
+      await deleteInquiry(token, id);
       setInquiries(inquiries.filter((inq) => inq.id !== id));
     } catch (e) {
       setError(e.message);
@@ -48,20 +50,26 @@ export default function Inquiries() {
                 <strong>Name:</strong> {inq.name}
               </p>
               <p>
-                <strong>Phone:</strong> {inq.phone}
+                <strong>Email:</strong> {inq.email}
+              </p>
+              <p>
+                <strong>Phone:</strong> {inq.number}
               </p>
               <p>
                 <strong>Message:</strong> {inq.message}
               </p>
               <p>
-                <strong>Car:</strong> {inq.car.make} {inq.car.model}
+                <strong>Interest:</strong>{" "}
+                {inq.make && inq.model
+                  ? `${inq.make} ${inq.model}`
+                  : "General Inquiry"}
               </p>
               <button onClick={() => handleDelete(inq.id)}>Delete</button>
             </li>
           ))}
         </ul>
       )}
-      <button onClick={() => navigate("/")}>Back to Home</button>
+      <button onClick={() => navigate("/home")}>Back to Home</button>
     </div>
   );
 }

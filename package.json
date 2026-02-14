@@ -1,5 +1,5 @@
 {
-  "name": "foobar",
+  "name": "dhmarte-auto-sale-web",
   "type": "module",
   "scripts": {
     "dev": "vite",
