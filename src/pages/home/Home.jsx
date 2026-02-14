@@ -2,6 +2,8 @@
 
 import { Link } from "react-router";
 import icon from "../../assets/dh_marte_web_icon.jpg";
+import carsLong from "../../assets/cars_for_sale_long.jpg";
+import auctions from "../../assets/auctions.jpg";
 
 export default function Home() {
   return (
@@ -13,9 +15,21 @@ export default function Home() {
       </p>
 
       <p className="links">
-        <Link to="/cars">Cars for Sale</Link>
+        <Link to="/cars">
+          <img
+            src={carsLong}
+            alt="Cars for Sale"
+            style={{ width: "300px", height: "200px" }}
+          />
+        </Link>
 
-        <Link to="/auctions">Auction Sites</Link>
+        <Link to="/auctions">
+          <img
+            src={auctions}
+            alt="Auctions"
+            style={{ width: "350px", height: "250px" }}
+          />
+        </Link>
       </p>
       <p className="cars">
         Explore our extensive inventory of pre-owned vehicles, carefully

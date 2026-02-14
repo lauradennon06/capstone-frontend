@@ -91,3 +91,16 @@ export async function updateCar(token, carId, carData) {
   }
   return result;
 }
+
+//fetches all photos for a car by ID from the API
+
+export async function getCarPhotos(carId) {
+  try {
+    const response = await fetch(`${API}/cars/${carId}/photos`);
+    const result = await response.json();
+    return result;
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+}

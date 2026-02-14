@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
-import { getCarById } from "../../api/cars";
+import { getCarById, getCarPhotos } from "../../api/cars";
 import { useAuth } from "../../auth/AuthContext";
 
 // This component will render the Car image, make, model, year, price, color, milage, as well as a button to create an inquiry about the car, and an edit button for a logged in user to edit the car details
@@ -12,6 +12,7 @@ export default function Car() {
   const { token } = useAuth();
 
   const [car, setCar] = useState(null);
+  const [photos, setPhotos] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -25,6 +26,8 @@ export default function Car() {
         }
 
         setCar(found);
+        const carPhotos = await getCarPhotos(carId);
+        setPhotos(carPhotos);
       } catch (e) {
         setError(e.message);
       }
@@ -45,7 +48,20 @@ export default function Car() {
       <h1>
         {car.make} {car.model} ({car.year})
       </h1>
-      <img src={car.photo_url} alt={`${car.make} ${car.model}`} />
+      {photos.length > 0 ? (
+        <div>
+          {photos.map((photo, index) => (
+            <img
+              key={photo.id}
+              src={photo.file_path}
+              alt={`${car.make} ${car.model}`}
+            />
+          ))}
+        </div>
+      ) : (
+        <img src={car.photo_url} alt={`${car.make} ${car.model}`} />
+      )}
+
       <p>Price: ${car.price}</p>
       <p>Color: {car.color}</p>
       <p>Mileage: {car.mileage} miles</p>

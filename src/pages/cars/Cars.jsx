@@ -3,12 +3,14 @@
 // logged in user will also have the option to delete a car
 
 import { useState, useEffect } from "react";
-import { getCars } from "../../api/cars";
+import { getCars, getCarPhotos } from "../../api/cars";
 import { Link } from "react-router";
 import { useAuth } from "../../auth/AuthContext";
+import carsLong from "../../assets/cars_for_sale_long.jpg";
 
 export default function Cars() {
   const [cars, setCars] = useState([]);
+  const [photos, setPhotos] = useState({});
   const { token } = useAuth();
 
   const syncCars = async () => {
@@ -16,6 +18,14 @@ export default function Cars() {
       const data = await getCars();
 
       setCars(data);
+      const photosMap = {};
+      await Promise.all(
+        data.map(async (car) => {
+          const carPhotos = await getCarPhotos(car.id);
+          photosMap[car.id] = carPhotos;
+        }),
+      );
+      setPhotos(photosMap);
     } catch (error) {
       console.error("failed to fetch cars", error);
     }
@@ -27,11 +37,29 @@ export default function Cars() {
 
   return (
     <>
-      <h1>Cars for Sale</h1>
+      <h1>
+        <img
+          src={carsLong}
+          alt="Cars for Sale"
+          style={{ width: "300px", height: "200px" }}
+        />
+      </h1>
       <ul>
         {cars.map((car) => (
           <li key={car.id}>
-            <img src={car.photo_url} alt={car.make + " " + car.model} />
+            {photos[car.id] && photos[car.id].length > 0 ? (
+              <img
+                src={photos[car.id][0].file_path}
+                alt={`${car.make} ${car.model}`}
+                width="400"
+              />
+            ) : (
+              <img
+                src={car.photo_url}
+                alt={`${car.make} ${car.model}`}
+                width="400"
+              />
+            )}
             <Link to={`/cars/${car.id}`}>
               {car.make} {car.model}
             </Link>

@@ -16,11 +16,16 @@ const AddCar = () => {
     vin: "",
     photo_url: "",
   });
+  const [files, setFiles] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    setFiles(e.target.files);
   };
 
   const handleSubmit = async (e) => {
@@ -38,6 +43,22 @@ const AddCar = () => {
         throw new Error("Failed to add the car.");
       }
       const newCar = await response.json();
+      // If there are files to upload, send them to the /upload endpoint
+      if (files.length > 0) {
+        const uploadFormData = new FormData();
+        uploadFormData.append("carId", newCar.id);
+        for (let file of files) {
+          uploadFormData.append("files", file);
+        }
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: uploadFormData,
+        });
+        if (!uploadResponse.ok) {
+          throw new Error("Failed to upload car photos.");
+        }
+      }
+
       navigate(`/cars/${newCar.id}`); // Redirect to the new car's detail page
     } catch (err) {
       setError(err.message);
@@ -103,11 +124,11 @@ const AddCar = () => {
           onChange={handleChange}
         />
         <input
-          type="text"
-          name="photo_url"
-          placeholder="Photo URL"
-          value={formData.photo_url}
-          onChange={handleChange}
+          type="file"
+          name="files"
+          multiple
+          onChange={handleFileChange}
+          accept="image/*"
         />
         <button type="submit">Add Car</button>
       </form>
