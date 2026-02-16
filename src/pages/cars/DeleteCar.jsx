@@ -1,46 +1,32 @@
-// This componenet will be used to delete a car from the database. It will also prompt the user to confirm the deletion before proceeding, and will display a success message after the car has been deleted.
+// This component will be used to delete a car from the database. The user will be able to click a button to delete the car, and then be redirected back to the cars page.
 
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router";
+import { deleteCar } from "../../api/cars";
 import { useAuth } from "../../auth/AuthContext";
 
-const DeleteCar = ({ carId }) => {
-  const { token } = useAuth();
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [error, setError] = useState(null);
+export default function DeleteCar() {
   const navigate = useNavigate();
+  const { carId } = useParams();
+  const { token } = useAuth();
 
-  const handleDelete = async () => {
-    if (window.confirm("Are you sure you want to delete this car?")) {
-      setIsDeleting(true);
-      try {
-        const response = await fetch(`/api/cars/${carId}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Failed to delete the car.");
-        }
-        alert("Car deleted successfully!");
-        navigate("/cars"); // Redirect to the cars list page after deletion
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsDeleting(false);
-      }
+  const onDelete = async () => {
+    try {
+      await deleteCar(token, carId);
+      alert("Car deleted successfully!");
+      navigate("/cars");
+    } catch (e) {
+      console.error("Failed to delete car", e);
+      alert(`Error: ${e.message}`);
     }
   };
 
   return (
-    <div>
-      <button onClick={handleDelete} disabled={isDeleting}>
-        {isDeleting ? "Deleting..." : "Delete Car"}
-      </button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
+    <>
+      <h1>Delete Car</h1>
+      <p>Are you sure you want to delete this car?</p>
+      <button onClick={onDelete}>Yes, Delete</button>
+      <button onClick={() => navigate("/cars")}>No, Go Back</button>
+    </>
   );
-};
-
-export default DeleteCar;
+}

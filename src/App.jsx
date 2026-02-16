@@ -6,6 +6,8 @@ import Home from "./pages/home/Home";
 import Cars from "./pages/cars/Cars";
 import Car from "./pages/cars/Car";
 import AddCar from "./pages/cars/AddCar";
+import EditCar from "./pages/cars/editCar";
+import DeleteCar from "./pages/cars/DeleteCar";
 import InquiryCar from "./pages/inquiries/InqueiryCar";
 import GeneralInquiries from "./pages/inquiries/GeneralInquiries";
 import User from "./pages/home/User";
@@ -25,7 +27,9 @@ export default function App() {
         <Route path="/cars" element={<Cars />} />
         <Route path="/cars/new" element={<AddCar />} />
         <Route path="/cars/:carId" element={<Car />} />
+        <Route path="/cars/:carId/edit" element={<EditCar />} />
         <Route path="/cars/:carId/inquire" element={<InquiryCar />} />
+        <Route path="/cars/:carId/delete" element={<DeleteCar />} />
         <Route path="/generalinquiries" element={<GeneralInquiries />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user" element={<User />} />

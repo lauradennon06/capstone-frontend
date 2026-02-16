@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { createInquiry } from "../../api/inquiries";
 import { getCarById } from "../../api/cars";
+import "./inquirycar.css";
 
 export default function InquiryCar() {
   const { carId } = useParams();
@@ -55,7 +56,7 @@ export default function InquiryCar() {
 
   if (success) {
     return (
-      <div>
+      <div className="inquiryPage">
         <h1>Thank You!</h1>
         <p style={{ color: "white" }}>
           Your inquiry has been submitted successfully. Redirecting to cars
@@ -66,12 +67,12 @@ export default function InquiryCar() {
   }
 
   return (
-    <div>
+    <div className="inquiryPage">
       <h1>
         Inquire About the {car.make} {car.model}
       </h1>
       {error && <p style={{ color: "red" }}>Error: {error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="inquiryForm">
         <div>
           <label>Name:</label>
           <textarea

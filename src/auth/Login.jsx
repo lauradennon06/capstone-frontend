@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 import { useAuth } from "./AuthContext";
+import "./login.css";
 
 /** A form that allows users to log into an existing account. */
 export default function Login() {
@@ -22,9 +23,9 @@ export default function Login() {
   };
 
   return (
-    <>
+    <div className="loginPage">
       <h2>ADMIN LOGIN</h2>
-      <form action={onLogin}>
+      <form action={onLogin} className="loginForm">
         <label>
           Email
           <input type="email" name="email" required />
@@ -36,6 +37,6 @@ export default function Login() {
         <button>Login</button>
         {error && <output>{error}</output>}
       </form>
-    </>
+    </div>
   );
 }

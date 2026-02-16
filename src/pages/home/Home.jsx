@@ -2,8 +2,10 @@
 
 import { Link } from "react-router";
 import icon from "../../assets/dh_marte_web_icon.jpg";
-import carsLong from "../../assets/cars_for_sale_long.jpg";
-import auctions from "../../assets/auctions.jpg";
+import carsLong from "../../assets/cars_for_sale_long1.jpg";
+import auctions from "../../assets/auctions1.jpg";
+import contact from "../../assets/contact_us.jpg";
+import "./home.css";
 
 export default function Home() {
   return (
@@ -13,38 +15,50 @@ export default function Home() {
         Welcome to DH Marte Auto Sale, your trusted destination for quality used
         vehicles and personalized car-buying services.
       </p>
-
-      <p className="links">
-        <Link to="/cars">
+      <div className="links">
+        <div className="cars">
+          <p>
+            Ready to drive your new car today? <br></br> Click the link below to
+            explore our cars that are maintenanced and ready for sale!
+          </p>
+          <p>
+            <Link to="/cars">
+              <img
+                src={carsLong}
+                alt="Cars for Sale"
+                style={{ width: "300px", height: "100px" }}
+              />
+            </Link>
+          </p>
+        </div>
+        <div className="auctions">
+          <p>
+            Looking for something more specific? <br></br>Explore auction sites
+            for a wider selection of vehicles. We will use our expertise to
+            guide you.
+          </p>
+          <p>
+            <Link to="/auctions">
+              <img
+                src={auctions}
+                alt="Auctions"
+                style={{ width: "300px", height: "100px" }}
+              />
+            </Link>
+          </p>
+        </div>
+      </div>
+      <p className="contact">
+        HAVE QUESTIONS?<br></br>
+        <Link to="/generalinquiries">
           <img
-            src={carsLong}
-            alt="Cars for Sale"
+            src={contact}
+            alt="Contact Us"
             style={{ width: "300px", height: "200px" }}
           />
         </Link>
+      </p>
 
-        <Link to="/auctions">
-          <img
-            src={auctions}
-            alt="Auctions"
-            style={{ width: "350px", height: "250px" }}
-          />
-        </Link>
-      </p>
-      <p className="cars">
-        Explore our extensive inventory of pre-owned vehicles, carefully
-        inspected and competitively priced to meet your needs and budget.
-      </p>
-      <p className="auctions">
-        Discover our curated list of reputable auction sites, where you can find
-        a wide range of vehicles at competitive prices, all backed by our
-        commitment to quality and customer satisfaction.
-      </p>
-      <Link to="/generalinquiries">General Inquiries</Link>
-      <p className="inquiries">
-        Have questions or need assistance? Contact us through our general
-        inquiry form.
-      </p>
       <footer>
         <Link to="/login">
           <img

@@ -1,0 +1,108 @@
+.inquiryForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  max-width: 500px;
+  margin: 20px auto;
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+.inquiryForm div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.inquiryForm label {
+  font-weight: bold;
+  color: white;
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+.inquiryForm textarea {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: 14px;
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+}
+
+.inquiryForm button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+.inquiryForm button:hover {
+  background-color: #e0e0e0;
+}
+
+.inquiryPage h1 {
+  text-align: center;
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+}
+
+h1 {
+  text-align: center;
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}

@@ -10,15 +10,21 @@ export default function AddAuction() {
   const navigate = useNavigate();
   const { token } = useAuth();
 
-  const onSubmit = async (formData) => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
     const name = formData.get("name");
     const url = formData.get("url");
     const icon_url = formData.get("icon_url");
 
+    console.log("Submitting auction:", { name, url, icon_url });
+
     try {
-      await createAuction({ name, url, icon_url }, token);
+      const result = await createAuction(token, { name, url, icon_url });
+      console.log("Auction created:", result);
       navigate("/auctions");
     } catch (e) {
+      console.error("Error creating auction:", e);
       setError(e.message);
     }
   };

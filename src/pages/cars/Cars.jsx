@@ -7,6 +7,9 @@ import { getCars, getCarPhotos } from "../../api/cars";
 import { Link } from "react-router";
 import { useAuth } from "../../auth/AuthContext";
 import carsLong from "../../assets/cars_for_sale_long.jpg";
+import "./cars.css";
+
+const API = import.meta.env.VITE_API;
 
 export default function Cars() {
   const [cars, setCars] = useState([]);
@@ -41,35 +44,43 @@ export default function Cars() {
         <img
           src={carsLong}
           alt="Cars for Sale"
-          style={{ width: "300px", height: "200px" }}
+          style={{ width: "400px", height: "300px" }}
         />
       </h1>
       <ul>
         {cars.map((car) => (
-          <li key={car.id}>
-            {photos[car.id] && photos[car.id].length > 0 ? (
-              <img
-                src={photos[car.id][0].file_path}
-                alt={`${car.make} ${car.model}`}
-                width="400"
-              />
-            ) : (
-              <img
-                src={car.photo_url}
-                alt={`${car.make} ${car.model}`}
-                width="400"
-              />
-            )}
-            <Link to={`/cars/${car.id}`}>
-              {car.make} {car.model}
+          <li key={car.id} className="carListItem">
+            <Link to={`/cars/${car.id}`} className="carTitle">
+              {car.make} {car.model} {car.year}
             </Link>
-            <br />
-            {car.year}
-            <br />- ${car.price}
-            {!token && (
-              <Link to={`/cars/${car.id}/inquire`}>Ask about this car</Link>
+            <Link to={`/cars/${car.id}`}>
+              {photos[car.id] && photos[car.id].length > 0 ? (
+                <img
+                  src={
+                    photos[car.id][0].file_path.startsWith("http")
+                      ? photos[car.id][0].file_path
+                      : `${API}/${photos[car.id][0].file_path}`
+                  }
+                  alt={`${car.make} ${car.model}`}
+                  width="400"
+                  height="400"
+                  style={{ objectFit: "cover" }}
+                />
+              ) : (
+                <img
+                  src={car.photo_url}
+                  alt={`${car.make} ${car.model}`}
+                  width="400"
+                  height="400"
+                  style={{ objectFit: "cover" }}
+                />
+              )}
+            </Link>
+            {token && (
+              <Link to={`/cars/${car.id}/delete`} className="deleteCarLink">
+                Delete Car
+              </Link>
             )}
-            {token && <Link to={`/cars/${car.id}/delete`}>Delete Car</Link>}
           </li>
         ))}
       </ul>

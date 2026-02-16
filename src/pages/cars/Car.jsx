@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router";
+import { useParams, Link, useNavigate } from "react-router";
 import { getCarById, getCarPhotos } from "../../api/cars";
 import { useAuth } from "../../auth/AuthContext";
+import "./car.css";
 
 // This component will render the Car image, make, model, year, price, color, milage, as well as a button to create an inquiry about the car, and an edit button for a logged in user to edit the car details
 // Information will be fetched from the API
 // The car ID will be a dynamic segment, the component will get the ID from useParams
 
+const API = import.meta.env.VITE_API;
+
 export default function Car() {
   const { carId } = useParams();
   const { token } = useAuth();
+  const navigate = useNavigate();
 
   const [car, setCar] = useState(null);
   const [photos, setPhotos] = useState([]);
@@ -27,8 +31,10 @@ export default function Car() {
 
         setCar(found);
         const carPhotos = await getCarPhotos(carId);
+        console.log("Car photos fetched:", carPhotos);
         setPhotos(carPhotos);
       } catch (e) {
+        console.error("Error loading car:", e);
         setError(e.message);
       }
     }
@@ -44,7 +50,7 @@ export default function Car() {
   }
 
   return (
-    <div>
+    <div className="carDetails">
       <h1>
         {car.make} {car.model} ({car.year})
       </h1>
@@ -53,21 +59,43 @@ export default function Car() {
           {photos.map((photo, index) => (
             <img
               key={photo.id}
-              src={photo.file_path}
+              src={
+                photo.file_path.startsWith("http")
+                  ? photo.file_path
+                  : `${API}/${photo.file_path}`
+              }
               alt={`${car.make} ${car.model}`}
+              width="400"
+              height="400"
+              style={{ objectFit: "cover" }}
             />
           ))}
         </div>
       ) : (
-        <img src={car.photo_url} alt={`${car.make} ${car.model}`} />
+        <img
+          src={car.photo_url}
+          alt={`${car.make} ${car.model}`}
+          width="400"
+          height="400"
+          style={{ objectFit: "cover" }}
+        />
       )}
 
       <p>Price: ${car.price}</p>
       <p>Color: {car.color}</p>
       <p>Mileage: {car.mileage} miles</p>
       <p>VIN: {car.vin}</p>
-      {token && <button>Edit Car Details</button>}
-      <Link to={`/cars/${carId}/inquire`}> Inquire About This Car</Link>
+      {token && (
+        <button onClick={() => navigate(`/cars/${carId}/edit`)}>
+          Edit Car Details
+        </button>
+      )}
+      {!token && (
+        <Link to={`/cars/${carId}/inquire`} className="inquire">
+          {" "}
+          Inquire About This Car
+        </Link>
+      )}
     </div>
   );
 }

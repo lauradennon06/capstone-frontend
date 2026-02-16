@@ -63,11 +63,12 @@ export async function deleteAuction(token, auctionId) {
     },
   });
 
-  const result = await response.json();
   if (!response.ok) {
+    const result = await response.json();
     throw Error(result.message);
   }
-  return result;
+
+  return response.status === 204 ? null : await response.json();
 }
 
 // Sends a request to the API to update an auction by ID, a token is required

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { getAuctions } from "../../api/auctions";
 import { useAuth } from "../../auth/AuthContext";
+import "./auctions.css";
 
 export default function Auctions() {
   const [auctions, setAuctions] = useState([]);
@@ -27,22 +28,29 @@ export default function Auctions() {
   console.log("Auctions data:", auctions);
 
   return (
-    <>
+    <div className="auctionsPage">
       <h1>Auctions</h1>
-      <ul>
+      <ul className="auctionsList">
         {auctions.map((auction) => (
-          <li key={auction.id}>
+          <li key={auction.id} className="auctionItem">
             <h2>{auction.name}</h2>
             <br />
             {auction.icon_url && (
-              <img src={auction.icon_url} alt={auction.name + " icon"} />
+              <img
+                src={auction.icon_url}
+                alt={auction.name + " icon"}
+                className="auctionIcon"
+              />
             )}
             <br />
-            <Link to={auction.url}>{auction.url}</Link>
+            <Link to={auction.url} className="auctionLink">
+              {auction.url}
+            </Link>
             {token && (
               <>
                 <button
                   onClick={() => navigate(`/auctions/delete/${auction.id}`)}
+                  className="auctionButton"
                 >
                   Delete
                 </button>
@@ -52,10 +60,13 @@ export default function Auctions() {
         ))}
       </ul>
       {token && (
-        <button onClick={() => navigate("/auctions/new")}>
+        <button
+          onClick={() => navigate("/auctions/new")}
+          className="auctionButton"
+        >
           Create New Auction
         </button>
       )}
-    </>
+    </div>
   );
 }

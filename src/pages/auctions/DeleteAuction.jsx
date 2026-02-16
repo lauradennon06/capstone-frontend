@@ -7,12 +7,12 @@ import { useAuth } from "../../auth/AuthContext";
 
 export default function DeleteAuction() {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { auctionId } = useParams();
   const { token } = useAuth();
 
   const onDelete = async () => {
     try {
-      await deleteAuction(id, token);
+      await deleteAuction(token, auctionId);
       navigate("/auctions");
     } catch (e) {
       console.error("Failed to delete auction", e);

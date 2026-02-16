@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../../auth/AuthContext";
+import { createCar } from "../../api/cars";
 
 const AddCar = () => {
   const { token } = useAuth();
@@ -31,18 +32,8 @@ const AddCar = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/cars", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to add the car.");
-      }
-      const newCar = await response.json();
+      const newCar = await createCar(token, formData);
+
       // If there are files to upload, send them to the /upload endpoint
       if (files.length > 0) {
         const uploadFormData = new FormData();
@@ -50,12 +41,18 @@ const AddCar = () => {
         for (let file of files) {
           uploadFormData.append("files", file);
         }
-        const uploadResponse = await fetch("/api/upload", {
+        const API = import.meta.env.VITE_API;
+        const uploadResponse = await fetch(`${API}/upload`, {
           method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           body: uploadFormData,
         });
         if (!uploadResponse.ok) {
-          throw new Error("Failed to upload car photos.");
+          const errorText = await uploadResponse.text();
+          console.error("Upload failed:", errorText);
+          throw new Error(`Failed to upload car photos: ${errorText}`);
         }
       }
 
@@ -122,6 +119,14 @@ const AddCar = () => {
           placeholder="VIN"
           value={formData.vin}
           onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="photo_url"
+          placeholder="Photo URL"
+          value={formData.photo_url}
+          onChange={handleChange}
+          required
         />
         <input
           type="file"

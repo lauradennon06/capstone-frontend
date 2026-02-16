@@ -7,6 +7,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router";
 import Register from "../../auth/Register";
 import { useAuth } from "../../auth/AuthContext";
+import "./user.css";
 
 const User = () => {
   const { logout } = useAuth();
@@ -18,10 +19,10 @@ const User = () => {
   };
 
   return (
-    <div>
+    <div className="userPage">
       <h1>WELCOME HECTOR</h1>
       <nav>
-        <ul>
+        <ul className="userNav">
           <li>
             <Link to="/cars">Manage Cars</Link>
           </li>
@@ -36,7 +37,9 @@ const User = () => {
           </li>
         </ul>
       </nav>
-      <Register />
+      <div className="registerSection">
+        <Register />
+      </div>
     </div>
   );
 };

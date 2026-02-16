@@ -11,51 +11,8 @@ body {
   color: white;
 }
 
-.links {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 300px;
-  margin-top: 50px;
-  justify-content: center;
-}
-
-.links a {
-  color: white;
-  text-decoration: none;
-  font-size: 24px;
-  border: 2px solid white;
-  padding: 10px 20px;
-  border-radius: 5px;
-}
-.links a:hover {
-  background-color: white;
-  color: black;
-}
 footer {
   display: flex;
   justify-content: end;
   margin-top: 50px;
-}
-footer a {
-  color: white;
-  text-decoration: none;
-  font-size: 10px;
-  padding: 5px 10px;
-}
-
-.intro {
-  width: 80%;
-  margin: 10px auto 0 auto;
-  text-align: center;
-  font-size: x-large;
-}
-
-.cars {
-  width: 40px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-self: left;
-  margin-top: 20px;
 }

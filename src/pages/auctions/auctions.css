@@ -1,0 +1,104 @@
+.auctionsPage h1 {
+  text-align: center;
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+.auctionItem h2 {
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+.auctionItem {
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin: 20px;
+}
+
+.auctionsList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.auctionIcon {
+  width: 200px;
+  height: 200px;
+}
+
+.auctionLink {
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  background-color: transparent;
+  border: 2px dashed white;
+  padding: 10px;
+  display: block;
+  width: fit-content;
+}
+
+.auctionLink:hover {
+  color: black;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.auctionButton {
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 4px;
+}
+
+.auctionButton:hover {
+  background-color: #e0e0e0;
+}

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { createInquiry } from "../../api/inquiries";
+import "./generalInquiries.css";
 
 export default function GeneralInquiry() {
   const navigate = useNavigate();
@@ -33,21 +34,23 @@ export default function GeneralInquiry() {
 
   if (success) {
     return (
-      <div>
-        <h1>Thank You!</h1>
-        <p style={{ color: "white" }}>
-          Your inquiry has been submitted. You will be redirected to the home
-          page shortly.
-        </p>
+      <div className="generalInquiryPage">
+        <div className="successMessage">
+          <h1>Thank You!</h1>
+          <p>
+            Your inquiry has been submitted. You will be redirected to the home
+            page shortly.
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="generalInquiryPage">
       <h1>General Inquiry</h1>
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
-      <form onSubmit={handleSubmit}>
+      {error && <p>{error}</p>}
+      <form className="generalInquiryForm" onSubmit={handleSubmit}>
         <label>
           Name:
           <input
@@ -57,7 +60,6 @@ export default function GeneralInquiry() {
             required
           />
         </label>
-        <br />
         <label>
           Email:
           <input
@@ -67,7 +69,6 @@ export default function GeneralInquiry() {
             required
           />
         </label>
-        <br />
         <label>
           Phone Number:
           <input
@@ -77,7 +78,6 @@ export default function GeneralInquiry() {
             required
           />
         </label>
-        <br />
         <label>
           Message:
           <textarea
@@ -86,11 +86,12 @@ export default function GeneralInquiry() {
             required
           />
         </label>
-        <br />
-        <button type="submit">Submit Inquiry</button>
-        <button type="button" onClick={() => navigate("/home")}>
-          Cancel
-        </button>
+        <div className="generalInquiryButtons">
+          <button type="submit">Submit Inquiry</button>
+          <button type="button" onClick={() => navigate("/home")}>
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

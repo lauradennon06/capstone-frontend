@@ -1,0 +1,78 @@
+.userPage {
+  padding: 20px;
+}
+
+.userPage h1 {
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 40px;
+  color: white;
+}
+
+.userNav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.userNav li {
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  margin: 10px;
+}
+
+.userNav a,
+.userNav button {
+  font-family:
+    Graphik,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  background-color: transparent;
+  margin: 10px;
+  border: 2px dashed white;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.userNav a:hover,
+.userNav button:hover {
+  color: black;
+  background-color: white;
+}
+
+.registerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
