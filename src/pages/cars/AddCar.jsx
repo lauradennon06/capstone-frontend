@@ -15,7 +15,6 @@ const AddCar = () => {
     color: "",
     mileage: "",
     vin: "",
-    photo_url: "",
   });
   const [files, setFiles] = useState([]);
   const [error, setError] = useState(null);
@@ -119,14 +118,6 @@ const AddCar = () => {
           placeholder="VIN"
           value={formData.vin}
           onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="photo_url"
-          placeholder="Photo URL"
-          value={formData.photo_url}
-          onChange={handleChange}
-          required
         />
         <input
           type="file"

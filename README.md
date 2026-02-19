@@ -40,32 +40,6 @@ A modern, full-stack web application for managing and selling vehicles. This fro
 - Node.js >= 22.0.0
 - npm package manager
 
-### Frontend Setup
-
-1. Install dependencies:
-
-```bash
-npm install
-```
-
-2. Create a `.env` file with:
-
-```
-VITE_API=http://localhost:5000
-```
-
-3. Start the development server:
-
-```bash
-npm run dev
-```
-
-4. Build for production:
-
-```bash
-npm run build
-```
-
 ### Backend Setup
 
 See the backend README for complete setup instructions including:

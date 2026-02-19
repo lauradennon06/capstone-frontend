@@ -28,6 +28,11 @@ export default function Inquiries() {
   }, []);
 
   async function handleDelete(id) {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this inquiry?",
+    );
+    if (!confirmed) return;
+
     try {
       await deleteInquiry(token, id);
       setInquiries(inquiries.filter((inq) => inq.id !== id));

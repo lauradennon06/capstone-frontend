@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { getCarById, updateCar } from "../../api/cars";
+import { useAuth } from "../../auth/AuthContext";
 import "./editCar.css";
 
 export default function EditCar() {
   const { carId } = useParams();
+  const { token } = useAuth();
   const navigate = useNavigate();
 
   const [car, setCar] = useState(null);
@@ -47,7 +49,7 @@ export default function EditCar() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await updateCar(carId, {
+      await updateCar(token, carId, {
         make,
         model,
         year,
